@@ -1,4 +1,4 @@
-package LinkedList;
+package Linkedlist;
 
 public class checkcycleinll {
     public boolean hasCycle(Node<Integer> head) {

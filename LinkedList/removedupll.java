@@ -1,4 +1,4 @@
-package LinkedList;
+package Linkedlist;
 
 public class removedupll {
     public Node<Integer> deleteDuplicates(Node<Integer> head) {

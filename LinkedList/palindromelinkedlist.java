@@ -1,4 +1,4 @@
-package LinkedList;
+package Linkedlist;
 
 public class palindromelinkedlist {
         public boolean isPalindrome(Node<Integer> head) {

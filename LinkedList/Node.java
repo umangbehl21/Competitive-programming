@@ -1,4 +1,4 @@
-package LinkedList;
+package Linkedlist;
 
     public class Node<t>{
         t data;
