@@ -13,7 +13,6 @@ class Node<t> {
 }
 
 public class flatterall {
-{
 
     Node<Integer> flatten(Node<Integer> root) {
         if (root == null || root.next == null) {
