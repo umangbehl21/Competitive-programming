@@ -26,7 +26,7 @@ public class deleteacycle {
 
        
         if (slow == fast) {
-            slow = node;
+            slow = head;
               if (slow.next != fast.next) {
                   while (slow.next != fast.next) {
                       slow = slow.next;
