@@ -10,11 +10,6 @@ public class deleteacycle {
             return; 
 
         Node<Integer> slow = head, fast = head;
-
-        slow = slow.next;
-        fast = fast.next.next;
-
-    
         while (fast != null && fast.next != null) {
           
 
