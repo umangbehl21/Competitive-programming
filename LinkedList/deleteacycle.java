@@ -22,7 +22,7 @@ public class deleteacycle {
        
         if (slow == fast) {
             slow = head;
-              if (slow.next != fast.next) {
+              if (slow != fast) {
                   while (slow.next != fast.next) {
                       slow = slow.next;
                       fast = fast.next;
