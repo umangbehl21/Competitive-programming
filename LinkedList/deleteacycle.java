@@ -1,15 +1,15 @@
 package Linkedlist;
 
 public class deleteacycle {
-    public static void  removeLoop(Node<Integer> node)  //hare and tortoise floyds algo
+    public static void  removeLoop(Node<Integer> head)  //hare and tortoise floyds algo
     {
 
         // If list is empty or has only one node
         // without loop
-        if (node == null || node.next == null)
-            return;
+        if (head == null || head.next == null)
+            return; 
 
-        Node<Integer> slow = node, fast = node;
+        Node<Integer> slow = head, fast = head;
 
         slow = slow.next;
         fast = fast.next.next;
