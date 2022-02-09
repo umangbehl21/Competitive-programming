@@ -9,7 +9,7 @@ public class segregate0to1 {
             if (arr[i] == 1) // j to i-1 region of 1
             {
                 i++;
-            } else // 0 to j-1 region of 0
+            } else if(arr[i] == 0) // 0 to j-1 region of 0
             {
                 swap(arr, i, j);
                 i++;
