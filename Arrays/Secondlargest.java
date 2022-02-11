@@ -3,8 +3,8 @@ package Arrays;
 public class Secondlargest {
     public static int print2largest(int A[]) 
     {
-       int secmax = -1;
-       int max = -1;
+       int secmax = Integer.MIN_VALUE;
+       int max = Integer.MIN_VALUE;
        for(int i = 0;i<A.length-1;i++)
        {
            if(A[i] > max)
@@ -18,12 +18,16 @@ public class Secondlargest {
            }
            
        }
+       if(secmax == max || secmax == Integer.MIN_VALUE)
+       {
+           return -1;
+       }
        
        return secmax;
       
     }
     public static void main(String[] args) {
-        int arr[] = {1,2,3,9,6,8};
+        int arr[] = {10,10,10,10,10};
         int a = print2largest(arr);
         System.out.println(a);
     }
