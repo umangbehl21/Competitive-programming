@@ -7,7 +7,7 @@ public class insertionsort {
         {                                            //in insertion sort array is divided into two parts sorted and unsorted
                                                     //pick an ith element from unsorted store it in temp 
             int j = i-1;                            //check if element on jth position is greater than the temp if greater then shift it by j+1 or one position further then further decrement the j though the entire sorted region to find the right place of the temp
-            int temp = arr[i];                      //int the end insert temp at j+1 position 
+            int temp = arr[i];                      //in the end insert temp at j+1 position 
             while(j >= 0 && arr[j] > temp)
             {
                 arr[j+1] = arr[j];
