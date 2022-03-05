@@ -10,16 +10,16 @@ public class replacepi {
       if(s.charAt(0) == 'p' && s.charAt(1) == 'i')
       {
           String smallans = pi(s.substring(2));
-          return smallans + "3.14";
+          return "3.14" + smallans;
       }
       else{
           String smallans = pi(s.substring(1));
-          return smallans + s.charAt(0);
+          return s.charAt(0) + smallans;
       }
 
 
     }
     public static void main(String[] args) {
-        System.out.println(pi("xpix"));
+        System.out.println(pi("pipi"));
     }
 }
