@@ -8,11 +8,11 @@ public class Quicksort {
        int j = ei;
        while(i < j)
        {
-        while(arr[i] <= pivot)
+        while(arr[i] <= pivot && i <= ei - 1)
         {
             i++;
         }
-        while(arr[j] > pivot)
+        while(arr[j] > pivot && j >= si)
         {
             j--;
         }
@@ -39,7 +39,7 @@ public class Quicksort {
         arr[j] = temp;
     }
     public static void main(String[] args) {
-        int arr[] = {4,6,2,5,7,9,13};
+        int arr[] = {4,1,3,9,7};
         quicksort(arr, 0 , arr.length-1);
         for(int i = 0;i<arr.length;i++)
         {
