@@ -18,7 +18,7 @@ public class ReturnEncodings {
               return;
           }
           int chv = ch - '0'; //1
-          char code = (char)('a' + chv - 1);
+          char code = (char)('a' + chv - 1);       
           asf = asf + code;
           returnencodingdoer(ques.substring(1), asf, ans);
        }
@@ -38,9 +38,11 @@ public class ReturnEncodings {
             String ch12 = ques.substring(0,2);
             String roq12 = ques.substring(2);
             int numv = Integer.parseInt(ch12);
-            char code12 = (char)('a' + numv - 1);
-            returnencodingdoer(roq12, asf + code12, ans);
-
+            if(numv <= 26)
+            {
+                char code12 = (char)('a' + numv - 1);
+                returnencodingdoer(roq12, asf + code12, ans);
+            }
        }
         
     }
