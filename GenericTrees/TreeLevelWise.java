@@ -12,11 +12,11 @@ public class TreeLevelWise {   //functions are implemented with help of queue as
         while(!pendingnodes.isEmpty())
         {
             TreeNode<Integer> frontnode = pendingnodes.remove();
-            System.out.println("enter the number of children of" + frontnode.data);
+            System.out.println("enter the number of children of " + frontnode.data);
             int numchild = sc.nextInt();
             for(int i = 0;i<numchild;i++)
             {
-                System.out.println("enter the "+(i+1)+"th node");
+                System.out.println("enter the "+(i+1)+" th node");
                 int childdata = sc.nextInt();
                 TreeNode<Integer> child = new TreeNode<Integer>(childdata);
                 frontnode.children.add(child);
@@ -194,6 +194,90 @@ public class TreeLevelWise {   //functions are implemented with help of queue as
        }
          return false;
     }
+    static int ms = Integer.MIN_VALUE;  //global variables 
+    static int msn = 0;
+    public static int ReturnSumCalcMaxsumSubtree(TreeNode<Integer> root)  //by travel and change strategy we are returning sum of every subtree and in the way we will get opportunity to find maximum subtree sum also for that we are maintaining the global variables to store the maximum values 
+    {
+       int sum = 0;
+       for(int i = 0;i<root.children.size();i++)
+       {
+           int csum = ReturnSumCalcMaxsumSubtree(root.children.get(i));
+           sum += csum; //adding in the postorder first left child will be added then right then outside the loop root will be added in the sum 
+       }
+       sum+=root.data;
+       if(sum > ms)
+       {
+         ms = sum;
+         msn = root.data;
+       }
+       return sum;
+    } 
+    public static boolean identicalcaller(TreeNode<Integer> root,TreeNode<Integer> root1) //helper function 
+    {
+        if(CountNodes(root) > CountNodes(root1) || CountNodes(root) < CountNodes(root1)) //first we have to check that the number of nodes are equal or not if not equal it will return false if they are equal it will call identical to check that the data of every node is same 
+        {
+           return false;
+        }
+        return identical(root, root1);
+    }
+    private static boolean identical(TreeNode<Integer> root,TreeNode<Integer> root1)   //we are comparing data of the two trees here 
+    { 
+       if(root.data != root1.data)
+       {
+           return false;
+       }
+       for(int i = 0;i<root.children.size();i++)
+       {
+            boolean smallans = identical(root.children.get(i), root1.children.get(i));
+            if(smallans == false)  // if any one node data is not same with the other we will return false and if it is same we will wait until loop ends and parent root will return true 
+            {
+                return false;
+            }
+       }
+       return true;
+    }
+    static int res = Integer.MIN_VALUE; //global variable max //default value is null for user defined classes
+    public static void NextLargerElement(TreeNode<Integer> root,int num)
+    {  
+       if(root.data > num)
+       {
+         if(res == Integer.MIN_VALUE || res > root.data) //if our root data is greater than num and res have min val then set res as that root data and now compare that res with every child that whether our current res is greater than any child if it is grater then it is not next larger element so we assign the element which was smaller from our res 
+         {
+            res = root.data;
+         }
+       }
+       for(int i = 0;i<root.children.size();i++)
+       {
+           NextLargerElement(root.children.get(i), num);
+       }
+       return;
+    }
+    static int secmax = Integer.MIN_VALUE;
+    static int max = Integer.MIN_VALUE;
+    public static void SecondLargest(TreeNode<Integer> root)
+    {
+    if(root.data > max)
+     {
+        secmax = max; 
+        max = root.data;
+     }
+     if(root.data >= secmax && root.data < max)
+     {
+         secmax = root.data;
+     }
+     for(int i = 0;i<root.children.size();i++)
+     {
+         SecondLargest(root.children.get(i));
+     }
+    }
+    public static void ReplaceNodeWithDepth(TreeNode<Integer> root,int depth) //we have to replace the node data with its depth 
+    {
+       root.data = depth;
+       for(int i = 0;i<root.children.size();i++)
+       {
+           ReplaceNodeWithDepth(root.children.get(i), depth + 1);
+       }
+    }
     public static void main(String[] args) {
         TreeNode<Integer> root = inputlevelwise();
         print(root);
@@ -210,7 +294,17 @@ public class TreeLevelWise {   //functions are implemented with help of queue as
         System.out.println("number of elements greater than x "+greater(root, 2));
         System.out.println("sum of nodes are "+SumOfNodes(root));
         System.out.println("iscotain "+iscontain(root, 7));
-
+        ReturnSumCalcMaxsumSubtree(root);
+        System.out.println("maximum sum subtree "+ms);
+        System.out.println("maximum sum node "+msn);
+        TreeNode<Integer> root1 = inputlevelwise(); //to check whether two trees are identical or not we need two inputs 
+        System.out.print(identicalcaller(root, root1));
+        NextLargerElement(root, 2);
+        System.out.println("next larger element is "+res);
+        SecondLargest(root);
+        System.out.println("second largest "+secmax);
+        ReplaceNodeWithDepth(root, 0);
+        print(root);
     }
 
 }
