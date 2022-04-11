@@ -119,7 +119,7 @@ public class BinaryTreeLevelwiseInput {
             return;
         }
         inorder(root.left);
-        System.out.println(root.data);
+        System.out.print(root.data + " ");
         inorder(root.right);
     }
     public static void preorder(BinaryTreeNode<Integer> root)
@@ -128,7 +128,7 @@ public class BinaryTreeLevelwiseInput {
         {
             return;
         }
-        System.out.println(root.data);
+        System.out.print(root.data + " ");
         preorder(root.left);
         preorder(root.right);
     }
@@ -140,15 +140,131 @@ public class BinaryTreeLevelwiseInput {
         }
         postorder(root.left);
         postorder(root.right);
-        System.out.println(root.data);
+        System.out.print(root.data + " ");
+    }
+    public static BinaryTreeNode<Integer> buildtreehelper(int in[],int pre[])
+    {
+       return buildtree(in,pre,0,in.length-1,0,pre.length-1);
+    }
+    private static BinaryTreeNode<Integer> buildtree(int in[],int pre[],int inS,int inE,int preS,int preE)
+    {
+       if(inS > inE)
+       {
+          return null;
+       }
+       int rootindex = -1;
+       int rootdata = pre[preS];
+       BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(rootdata);
+       for(int i = inS;i<=inE;i++)
+       {
+          if(rootdata == in[i])
+          {
+              rootindex = i;
+              break;
+          }
+       }
+       int liS = inS;
+       int liE = rootindex - 1;
+       int lpS = preS + 1;
+       int lpe = liE - liS + lpS;
+       int ris = rootindex + 1;
+       int riE = inE;
+       int rpS = lpe + 1;
+       int rpE = preE;
+       root.left = buildtree(in, pre, liS, liE, lpS, lpe);
+       root.right = buildtree(in, pre, ris, riE, rpS, rpE);
+       return root;
+        
+    }
+    public static BinaryTreeNode<Integer> BuildTreeFromPostOrder(int in[],int po[])
+    {
+        return BuildTreeFromPostOrderhelp(in, po,0,in.length-1,0,po.length-1);
+    }
+    private static BinaryTreeNode<Integer> BuildTreeFromPostOrderhelp(int in[],int po[],int inS,int inE,int poS,int poE)
+    { 
+        if(inS > inE)
+        {
+            return null;
+        }
+        int rootdata = po[poE];
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(rootdata);
+        int rootindex = -1;
+        for(int i = inS;i<=inE;i++)  //when third recursive call is made inorder start become equal to inorder end so we will write <= in condition 
+        {
+             if(rootdata == in[i])
+              {
+                  rootindex = i;
+                  break;
+              }
+        }
+        int leftins = inS;
+        int leftinE = rootindex - 1;
+        int leftpoS = poS;
+        int leftpoE = leftinE - leftins + leftpoS;
+        int rightinS = rootindex + 1;
+        int rightinE = inE;
+        int rightpoS = leftpoE + 1;
+        int rightpoE = poE - 1;
+        root.left = BuildTreeFromPostOrderhelp(in, po,leftins, leftinE, leftpoS, leftpoE);
+        root.right = BuildTreeFromPostOrderhelp(in, po, rightinS, rightinE, rightpoS, rightpoE);
+        return root;
+    }
+    public static void MirrorBinaryTree(BinaryTreeNode<Integer> root)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        MirrorBinaryTree(root.left);
+        MirrorBinaryTree(root.right);
+        BinaryTreeNode<Integer> temp = root.left;
+        root.left = root.right;
+        root.right = temp;
+    }
+    public static boolean IsPresent(BinaryTreeNode<Integer> root,int data)
+    {
+        if(root == null)
+        {
+            return false;
+        }
+        if(root.data == data)
+        {
+            return true;
+        }
+        boolean Lsmallans = IsPresent(root.left,data);
+        if(Lsmallans == true)
+        {
+            return true;
+        }
+        boolean Rsmallans = IsPresent(root.right, data);
+        if(Rsmallans == true)
+        {
+            return true;
+        }
+        return false;
+
     }
     public static void main(String[] args) {
-      BinaryTreeNode<Integer> root = LevelWiseInput();
-      print(root);
-      pair<Integer,Integer> output = heightdiameter(root);
-      System.out.println("Diameter is "+output.second);
-      System.out.println("height is "+output.first);
-      inorder(root);
+    //   BinaryTreeNode<Integer> root = LevelWiseInput();
+    //   print(root);
+    //   pair<Integer,Integer> output = heightdiameter(root);
+    //   System.out.println("Diameter is "+output.second);
+    //   System.out.println("height is "+output.first);
+    //   System.out.println("inorder");
+    //   inorder(root);
+    //   System.out.println("postorder");
+    //   postorder(root);
+    //   System.out.println("preorder");
+    //   preorder(root);
+    // int in[] = {4,2,5,1,6,3,7};
+    // int pre[] = {1,2,4,5,3,6,7};
+    // BinaryTreeNode<Integer> root = buildtreehelper(in, pre);
+    // print(root);
+    int in1[] = {4,2,5,1,6,3,7};
+    int po[] = { 4,5,2,6,7,3,1};
+    BinaryTreeNode<Integer> root = BuildTreeFromPostOrder(in1, po);
+    print(root);
+    // System.out.println(IsPresent(root, 4));
 
     }
 }
