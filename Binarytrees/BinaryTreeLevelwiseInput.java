@@ -157,7 +157,7 @@ public class BinaryTreeLevelwiseInput {
        BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(rootdata);
        for(int i = inS;i<=inE;i++)
        {
-          if(rootdata == in[i])
+          if(rootdata == in[i])                    
           {
               rootindex = i;
               break;
@@ -250,7 +250,7 @@ public class BinaryTreeLevelwiseInput {
         {
             return 0;
         }
-        int sum = 1;
+        int sum = root.data;
         sum += SumofNodes(root.left);
         sum+= SumofNodes(root.right);
         return sum;
@@ -270,7 +270,7 @@ public class BinaryTreeLevelwiseInput {
         root.right = RemoveLeafNodes(root.right);
         return root;
     }
-    static boolean isbal;
+    static boolean isbal; //by travel and change stratergy 
     public static int isBal(BinaryTreeNode<Integer> root) //a tree is said to be balanced when difference between its left subtree height and right subtree height is not greater than 1 
     {
         if(root == null)
@@ -302,30 +302,73 @@ public class BinaryTreeLevelwiseInput {
         return bp;
 
     }
+    public static List<List<Integer>> printZigZagdoer(BinaryTreeNode<Integer> root)
+    {
+       
+        List<List<Integer>> result = new ArrayList<>();
+        if(root == null)
+        {
+            return result;
+        }
+        Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
+        q.add(root);
+        int level = 0;
+        while(!q.isEmpty())
+        {
+            int size = q.size();
+            List<Integer> temp = new ArrayList<>();
+            for(int i=0;i<size;i++)
+            {
+                BinaryTreeNode<Integer> t = q.poll();
+                temp.add(t.data);
+                if(t.left != null)
+                {
+                    q.add(t.left);
+                }
+                if(t.right != null)
+                {
+                    q.add(t.right);
+                }
+                if(level % 2 == 0)
+                {
+                    temp.add(t.data);
+                }  
+                else
+                {
+                    temp.add(0,t.data);
+                }
+            }
+            level++;
+            result.add(temp);
+        }
+       return result;
+    }
 
     public static void main(String[] args) {
       BinaryTreeNode<Integer> root = LevelWiseInput();
-      print(root);
-      pair<Integer,Integer> output = heightdiameter(root);
-      System.out.println("Diameter is "+output.second);
-      System.out.println("height is "+output.first);
-      System.out.println("inorder");
-      inorder(root);
-      System.out.println("postorder");
-      postorder(root);
-      System.out.println("preorder");
-      preorder(root);
-    // int in[] = {4,2,5,1,6,3,7};
-    // int pre[] = {1,2,4,5,3,6,7};
-    // BinaryTreeNode<Integer> root = buildtreehelper(in, pre);
+    //   print(root);
+    //   pair<Integer,Integer> output = heightdiameter(root);
+    //   System.out.println("Diameter is "+output.second);
+    //   System.out.println("height is "+output.first);
+    //   System.out.println("inorder");
+    //   inorder(root);
+    //   System.out.println("postorder");
+    //   postorder(root);
+    //   System.out.println("preorder");
+    //   preorder(root);
+    // // int in[] = {4,2,5,1,6,3,7};
+    // // int pre[] = {1,2,4,5,3,6,7};
+    // // BinaryTreeNode<Integer> root = buildtreehelper(in, pre);
+    // // print(root);
+    // // int in1[] = {4,2,5,1,6,3,7};
+    // // int po[] = { 4,5,2,6,7,3,1};
+    // // BinaryTreeNode<Integer> root = BuildTreeFromPostOrder(in1, po);
     // print(root);
-    // int in1[] = {4,2,5,1,6,3,7};
-    // int po[] = { 4,5,2,6,7,3,1};
-    // BinaryTreeNode<Integer> root = BuildTreeFromPostOrder(in1, po);
-    print(root);
-    System.out.println(IsPresent(root, 4));
-    System.out.println(SumofNodes(root));
-    RemoveLeafNodes(root);
-    print(root);
+    // System.out.println(IsPresent(root, 4));
+    // System.out.println(SumofNodes(root));
+    // RemoveLeafNodes(root);
+    // print(root);
+    printZigZagdoer(root, 1);
+
     }
 }
