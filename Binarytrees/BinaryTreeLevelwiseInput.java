@@ -302,46 +302,42 @@ public class BinaryTreeLevelwiseInput {
         return bp;
 
     }
-    public static List<List<Integer>> printZigZagdoer(BinaryTreeNode<Integer> root)
+    public static List<Integer> printZigZagdoer(BinaryTreeNode<Integer> root)
     {
-       
-        List<List<Integer>> result = new ArrayList<>();
+        List<Integer> ans= new ArrayList<>();
         if(root == null)
-        {
-            return result;
+        { 
+            return ans;
         }
-        Queue<BinaryTreeNode<Integer>> q = new LinkedList<>();
-        q.add(root);
-        int level = 0;
-        while(!q.isEmpty())
-        {
-            int size = q.size();
-            List<Integer> temp = new ArrayList<>();
-            for(int i=0;i<size;i++)
-            {
-                BinaryTreeNode<Integer> t = q.poll();
-                temp.add(t.data);
-                if(t.left != null)
-                {
-                    q.add(t.left);
-                }
-                if(t.right != null)
-                {
-                    q.add(t.right);
-                }
-                if(level % 2 == 0)
-                {
-                    temp.add(t.data);
-                }  
-                else
-                {
-                    temp.add(0,t.data);
-                }
-            }
-            level++;
-            result.add(temp);
+        Queue<BinaryTreeNode<Integer>> q1 = new LinkedList<>();  
+        q1.add(root);
+        boolean lefttoright = true;  
+        while(!q1.isEmpty())
+        {    
+             int size = q1.size(); //size of each level  
+             int arr[]= new int[size] ; //an array which will be of size of queue level always 
+             for(int i = 0;i<arr.length;i++)  //for loop will traverse on the nodes of each level the length of array and length of that level will be same 
+             {
+                 
+                BinaryTreeNode<Integer> node = q1.poll();  
+                int index = (lefttoright)?i:(arr.length -i-1);    //if left to right is true index will have 0 then 1(addition for left to right) if it is false index will have 1 in it and then 0(addition is being done from right to left )
+                arr[index]= node.data;  //whatever value will be in index node data will be set accordingly in the Array
+                if(node.left != null)
+                 {
+                     q1.add(node.left);   
+                 }
+              if(node.right != null)
+                 {
+                     q1.add(node.right);   
+                 }
+             }
+             lefttoright = !lefttoright; //this will make left to right false if it is true and similarly it can be true if it is false 
+             for(int i = 0;i<size;i++)
+             {
+                 ans.add(arr[i]);
+             }
         }
-       return result;
+        return ans;
     }
 
     public static void main(String[] args) {
@@ -368,7 +364,8 @@ public class BinaryTreeLevelwiseInput {
     // System.out.println(SumofNodes(root));
     // RemoveLeafNodes(root);
     // print(root);
-    printZigZagdoer(root, 1);
+    List<Integer> result = printZigZagdoer(root);
+    System.out.println(result);
 
     }
 }
