@@ -339,33 +339,54 @@ public class BinaryTreeLevelwiseInput {
         }
         return ans;
     }
+    public static void NodesWithoutSiblings(BinaryTreeNode<Integer> root)
+    {
+       if(root == null)
+       {
+           return;
+       }
+       if(root.left == null || root.right == null)
+       {
+           if(root.left == null && root.right != null)
+           {
+              System.out.println(root.right.data);
+           }
+           if(root.right == null && root.left != null)
+           {
+                System.out.println(root.left.data);
+           }
+       }
+       NodesWithoutSiblings(root.left);
+       NodesWithoutSiblings(root.right);
 
+    }
     public static void main(String[] args) {
       BinaryTreeNode<Integer> root = LevelWiseInput();
-    //   print(root);
-    //   pair<Integer,Integer> output = heightdiameter(root);
-    //   System.out.println("Diameter is "+output.second);
-    //   System.out.println("height is "+output.first);
-    //   System.out.println("inorder");
-    //   inorder(root);
-    //   System.out.println("postorder");
-    //   postorder(root);
-    //   System.out.println("preorder");
-    //   preorder(root);
-    // // int in[] = {4,2,5,1,6,3,7};
-    // // int pre[] = {1,2,4,5,3,6,7};
-    // // BinaryTreeNode<Integer> root = buildtreehelper(in, pre);
-    // // print(root);
-    // // int in1[] = {4,2,5,1,6,3,7};
-    // // int po[] = { 4,5,2,6,7,3,1};
-    // // BinaryTreeNode<Integer> root = BuildTreeFromPostOrder(in1, po);
+      print(root);
+      pair<Integer,Integer> output = heightdiameter(root);
+      System.out.println("Diameter is "+output.second);
+      System.out.println("height is "+output.first);
+      System.out.println("inorder");
+      inorder(root);
+      System.out.println("postorder");
+      postorder(root);
+      System.out.println("preorder");
+      preorder(root);
+    // int in[] = {4,2,5,1,6,3,7};
+    // int pre[] = {1,2,4,5,3,6,7};
+    // BinaryTreeNode<Integer> root = buildtreehelper(in, pre);
     // print(root);
-    // System.out.println(IsPresent(root, 4));
-    // System.out.println(SumofNodes(root));
-    // RemoveLeafNodes(root);
-    // print(root);
+    // int in1[] = {4,2,5,1,6,3,7};
+    // int po[] = { 4,5,2,6,7,3,1};
+    // BinaryTreeNode<Integer> root = BuildTreeFromPostOrder(in1, po);
+    print(root);
+    System.out.println(IsPresent(root, 4));
+    System.out.println(SumofNodes(root));
+    RemoveLeafNodes(root);
+    print(root);
     List<Integer> result = printZigZagdoer(root);
     System.out.println(result);
+    NodesWithoutSiblings(root);
 
     }
 }
