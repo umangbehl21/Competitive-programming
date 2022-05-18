@@ -15,7 +15,7 @@ public class BoundarySum {
 	    sum += LeftBoundarySum(root.left);
 		if(root.left == null)
 		{
-			sum += RightBoundarySum(root.right);
+			sum += LeftBoundarySum(root.right);
 		}
 		return sum;
 	}
