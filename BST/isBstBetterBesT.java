@@ -1,8 +1,7 @@
 package BST;
 
 import Binarytrees.BinaryTreeNode;
-
-public class isBst2
+public class isBstBetterBesT
 {
     
     public static boolean isbst(BinaryTreeNode<Integer> root)  //the worst case complexity will be o(n^2) as every node is first returning maximum and minimum and when checking that it is balanced it is checking maximum and minimum again 
@@ -48,13 +47,6 @@ public class isBst2
         }
        return Math.min(root.data,Math.min(minimum(root.right),minimum(root.left)));
         
-    }
-    public static pair<Boolean,pair<Integer,Integer>> isBst2(BinaryTreeNode<Integer> root)
-    {
-       if(root == null)
-       {
-           pair<Boolean,pair<Integer,Integer>> output = new pair
-       }
     }
     public static void main(String[] args) {
         BinaryTreeNode<Integer> root = Levelwiseinput.levelwise();
