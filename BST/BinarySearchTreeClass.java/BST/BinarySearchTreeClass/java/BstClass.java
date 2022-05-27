@@ -65,6 +65,10 @@ public class BstClass {
         {
             return false;
         }
+        if(root.data == data)
+        {
+            return true;
+        }
         if(root.data < data)
         {
             return searchNodehelper(data, root.right);
