@@ -5,14 +5,14 @@ public class BstClass {
     private BinaryTreeNode<Integer> root;  //all are non static data member and mebmber functions
     public void insert(int data)
     {
-      inserthelper(root,data);
+      root = inserthelper(root,data);
     }
     public BinaryTreeNode<Integer> inserthelper(BinaryTreeNode<Integer> root,int data)
     {
         if(root == null)
         {
-            root = new BinaryTreeNode<Integer>(data);
-            return root;
+            BinaryTreeNode<Integer> newnode = new BinaryTreeNode<Integer>(data);
+            return newnode;
         }
         else
         { 
@@ -36,24 +36,48 @@ public class BstClass {
          {
              return null;
          }
-         if(data == root.data)
-         {
-             return null;
-         }
          if(data > root.data)
          {
             root.right = deletehelper(root.right, data);
+            return root; 
          }
-         else
+         else if(data < root.data)
          {
             root.left = deletehelper(root.left, data);
+            return root;        
          }
-         return root;
+         else 
+         {
+             if(root.left == null && root.right == null)
+             {
+                 return null;
+             }
+             else if(root.left == null)
+             {
+                 return root.right;
+             }
+             else if(root.right == null)
+             {
+                 return root.left;
+             }
+             else
+             {
+                 BinaryTreeNode<Integer> minnode = root.right;
+                 while(minnode.left != null)
+                 {
+                     minnode = minnode.left;
+                 }
+                 root.data = minnode.data;
+                 root.right = deletehelper(root.right,minnode.data);
+                 return root;
+             }
+         }
+         
 
     }
     public void delete(int data)
     {  
-       deletehelper(root, data);
+      root = deletehelper(root, data);
     }
     public boolean searchNode(int data)
     {
