@@ -13,8 +13,8 @@ public class BstToSortedLinkedList
              return;
          }
          inorder(root.left, prev);
-         prev.left = null;
-         prev.right = root; 
+         prev.left = null; 
+         prev.right = root;   
          prev = root;
          inorder(root.right, prev);                     
     }
@@ -26,7 +26,7 @@ public class BstToSortedLinkedList
         inorder(root, prev);
         prev.left = null;
         prev.right = null; 
-        return prev;
+        return dummy.right;
     }
     public static void main(String[] args) {
         BinaryTreeNode<Integer> root = BinaryTreeLevelwiseInput.LevelWiseInput();
