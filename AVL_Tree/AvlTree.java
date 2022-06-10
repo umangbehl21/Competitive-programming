@@ -27,7 +27,7 @@ public class AvlTree
        node.bal = bal;
      
     }
-    public static AvlNode rightrotation(AvlNode A) //for left left
+    public static AvlNode rightrotation(AvlNode A) //for left left rotate right 
     {
         AvlNode B = A.left;
         AvlNode B_right = B.right;
@@ -37,14 +37,14 @@ public class AvlTree
         UpdateHeightandBal(B);
         return B;
     }
-    public static AvlNode leftrotation(AvlNode A) //for right 
+    public static AvlNode leftrotation(AvlNode A) //for right right rotate left 
     {
         AvlNode B = A.right;
         AvlNode B_left = B.left;
         B.left = A;
         A.right =  B_left;
-        UpdateHeightandBal(A);
-        UpdateHeightandBal(B);
+        UpdateHeightandBal(A); //the height and balance of B depends on A so we have to update A first then B
+        UpdateHeightandBal(B); 
         return B;
         
     }
@@ -59,7 +59,7 @@ public class AvlTree
            }
            else 
            {
-              node.left = leftrotation(node.left);
+              node.left = leftrotation(node.left); //for left right there are right right nodes so we have to work on that right right to rotate it left when the three of nodes turn in left left then rotate it righwards
               rightrotation(node);
            }
        }
@@ -69,15 +69,104 @@ public class AvlTree
            {
             return leftrotation(node);
            }
-           else 
+           else //rl 
            {
-              node.right = rightrotation(node);
+              node.right = rightrotation(node);  //for right left there are left left nodes so we have to rotate it right when the three of nodes turn in right right then rotate ot left  
               return leftrotation(node);
            }
        }
        return node;
 
     }
+    public static AvlNode addData(AvlNode root,int data)  //after adding nodes the structure of the balance of the nodes can be disturbed so we have to rotate after adding 
+    {
+        if(root == null)
+        {
+           return new AvlNode(data);
+        }
+        if(data < root.data)
+        {
+           root.left = addData(root.left, data);
+        }
+        else if(data > root.data)
+        {
+          root.right = addData(root.right, data);
+        }
+        root = getrotation(root);
+        return root;
+    }
+    public static void display(AvlNode root)
+    {
+        if(root == null)
+        {
+            return;
+        }
+        String s = root.data + ":";
+        if(root.left != null) s += root.left.data + "L,";
+        if(root.right != null) s += root.right.data + "R";
+        System.out.println(s);
+        display(root.left);
+        display(root.right);
+    }
+    public static AvlNode deleteNode(AvlNode root,int data) //after removing nodes the structure of the balance of the nodes can be disturbed so we have to rotate after removing
+    {
+        if(data < root.data)
+        {
+            root.left = deleteNode(root.left, data);
+        }
+        else if(data > root.data)
+        {
+           root.right =  deleteNode(root.right, data);
+        }
+        else 
+        {
+            if(root.left == null && root.right == null)
+            {
+                return null;
+            }
+            if(root.left == null)  
+            {
+                return root.right;
+            }
+            if(root.right == null)
+            {
+                return root.left;
+            }
+            else 
+            {
+
+                AvlNode minnode = root.left;
+                while(minnode.right != null)
+                {
+                    minnode = minnode.right;
+                }
+                root.data = minnode.data;
+                root.left = deleteNode(root.left, minnode.data);
+
+            }
+        }
+        root = getrotation(root);
+        return root;
+    }
+    public static void main(String args[])
+    {
+        int arr[] = {10,20,30,40,50,60,70,80,90,100};
+        AvlNode root = null;
+        for(int ele : arr)
+        {
+            root = addData(root, ele);  //adding nodes 
+        }
+        display(root);
+        System.out.println(".........");
+        System.out.println();
+        for(int i = arr.length-1;i>=0;i--) //one by one deleting nodes 
+        {
+            root = deleteNode(root,arr[i]);
+            display(root);
+            System.out.println("========");
+        }
+    }
+
 
 
 
