@@ -1,7 +1,7 @@
 package HashMap;
 import java.util.*;
 public class LongestSubsetZeroSum {
-    public static int LongenstSubsetZerosum(int arr[])
+    public static int LongenstSubsetZerosum(int arr[]) 
     {
         HashMap<Integer,Integer> map = new HashMap<>();
         int mlen = 0; //max length initially 0
