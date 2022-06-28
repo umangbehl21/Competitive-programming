@@ -1,7 +1,7 @@
 package PriorityQueue;
 import java.util.*;
 public class BuyTicket {
-      public static int timelimit(int arr[],PriorityQueue<Integer> anspq,int element)
+      public static int timelimit(int arr[],int element)
       {
         int time = 0;
         for(int i = 0;i<arr.length;i++)
@@ -16,7 +16,6 @@ public class BuyTicket {
       }
         public static void main(String[] args) {
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-        PriorityQueue<Integer> anspq = new PriorityQueue<>(Collections.reverseOrder());
         int nums[] = {2,3,2,2,4};
         int element = nums[1];
         for(int i : nums)
@@ -26,12 +25,8 @@ public class BuyTicket {
         int arr[] = new int[nums.length];
         for(int i = 0;i<arr.length;i++)
         {
-            arr[i] = pq.remove();
+            arr[i] = pq.remove(); //sorting the array using priority queue 
         }
-        for(int i : arr)
-        {
-            anspq.add(i);
-        }
-        System.out.println(timelimit(arr, anspq,element));
+        System.out.println(timelimit(arr,element));
     }
 }
