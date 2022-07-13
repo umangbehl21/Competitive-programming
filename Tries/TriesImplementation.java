@@ -18,15 +18,22 @@ class TrieNode
 public class TriesImplementation
  {   
      TrieNode root;
+     int WordCount;
      public TriesImplementation()
      {
         root = new TrieNode('\0');
+        WordCount = 0;  //to calculate number of words keep track when isTerminate is set to true or false or when we are inserting or removing a word 
+     }
+     public int WordCount()
+     {
+        return WordCount;
      }
      private void insertHelper(String word,TrieNode root)
      {
         if(word.length() == 0)
         {
             root.IsTerminating = true;
+            WordCount++;
             return;
         }
         int ChildIndex = word.charAt(0) - 'a';   //to find the index Ascii value of 'a' is 97 suppose we have to find index of 'b' then Ascii value of b is 98 and a is 97 so 98-97 = 1 is index of b 
@@ -48,6 +55,7 @@ public class TriesImplementation
         if(word.length() == 0)  //if world length is 0 means we have reach the last character of the word we want to remove so turn its isTerminate to false 
         {
             root.IsTerminating = false;
+            WordCount--;
             return;
         }
         int childindex = word.charAt(0) - 'a'; //finding index by subtracting ascii value of character from 'a'
@@ -97,15 +105,20 @@ public class TriesImplementation
         
         t1.insert("news");
         
-        System.out.println("before removing");
+        System.out.println("before removing ");
        
-        System.out.println(t1.search("news"));
+        System.out.println(t1.search("news")+" this word exists ");
        
         System.out.println("after removing");
         
         t1.remove("news");
        
-        System.out.println(t1.search("news"));
+        System.out.println(t1.search("news")+" this word do not exists ");
+
+        t1.insert("new");
+        t1.insert("hey");
+        t1.insert("eren");
+        System.out.println("total number of words in tries are "+t1.WordCount);
      }
 }
 
