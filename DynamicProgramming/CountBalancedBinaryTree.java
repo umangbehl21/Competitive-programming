@@ -2,7 +2,7 @@ package DynamicProgramming;
 
 public class CountBalancedBinaryTree 
 {  
-    private static int CountBalancedBinaryTreeRecur(int h,int mod)
+    private static int CountBalancedBinaryTreeRecur(int h,int mod)  //by memoization on suchimaheshwwari git
     {
          if(h == 0 || h == 1) //for height is 0 empty binary tree can be formed for height = 1 again 1 binary tree can be formed 
          {
