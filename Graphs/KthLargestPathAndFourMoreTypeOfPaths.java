@@ -82,8 +82,22 @@ public class KthLargestPathAndFourMoreTypeOfPaths {
            }
           
        }
+       visited[src] = false;
 
-
+    }
+    public static void PrintAllPath(ArrayList<Edges>[] Vertices,int src,int des,int wsf,String psf,int criteria,int k)
+    { 
+        boolean visited[] = new boolean[Vertices.length];
+        PrintAllPathHelper(Vertices, src, des, wsf, psf + src,visited,criteria, k);
+    }
+    public static void main(String[] args) {
+       ArrayList<Edges> Vertices[] = AdjacencyListImplementation.AdjacencyListImplementationInp();
+       PrintAllPath(Vertices, Vertices[0].get(0).src, Vertices[Vertices.length-1].get(0).src, 0, "", 40, 3);
+       System.out.println(spath + "@" + swpath);
+       System.out.println(lpath + "@" + lwpath);
+       System.out.println(jlptc + "@" + jlpwtc);
+       System.out.println(jsptc + "@" + jspwtc);
+       System.out.println( pq.peek().psf+"@"+pq.peek().wsf);
     }
 
 }
