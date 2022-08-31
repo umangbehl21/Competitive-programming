@@ -11,24 +11,12 @@ public class SpreadOfInfection {
             this.day = day;
         }
     }
-    public static int spreadOfInfection(ArrayList<Edges> []graph,int src,int day)  //day till how much people are infected is passed 
-    {
-        int count = 0;
-        int visited[] = new int[graph.length];
-        for(int i = 0;i<graph.length;i++)
-        {
-            if(visited[i] == 0)  
-            {
-               count += spreadOfInfectionHelper(graph, src, day,visited);
-            }
-        }
-      return count;
-    }
-    private static int spreadOfInfectionHelper(ArrayList<Edges>[] graph, int src, int day, int[] visited)
+    private static int spreadOfInfection(ArrayList<Edges>[] graph, int src, int day)
     {
         int count = 0;
         Queue<pair> pendingnodes = new LinkedList<>();
         pendingnodes.add(new pair(src,1));
+        int visited[] = new int[graph.length];
         while(!pendingnodes.isEmpty())
         {
            pair front = pendingnodes.remove();
@@ -41,8 +29,8 @@ public class SpreadOfInfection {
              break;
            }
            count++;  //else count the number of people infected till the day we have to find 
-           visited[front.day] = front.day;  //set the day on which they are infected in the visited array on their respective index 
-           for(Edges e : graph[src])
+           visited[front.v] = front.day;  //set the day on which they are infected in the visited array on their respective index 
+           for(Edges e : graph[front.v])  //traverse on the edges of the current vertice 
            {
               if(visited[e.nbr] == 0)  //if neihbour is not visited or infected then add it in the queue to infect him 
               {
@@ -57,7 +45,7 @@ public class SpreadOfInfection {
     }
     public static void main(String[] args) {
         ArrayList<Edges> [] graph = AdjacencyListImplementation.AdjacencyListImplementationInp();
-        int a = spreadOfInfection(graph, graph[graph.length-1].get(0).src, 3); 
+        int a = spreadOfInfection(graph, 0, 3); 
         System.out.println(a);
     }
 
