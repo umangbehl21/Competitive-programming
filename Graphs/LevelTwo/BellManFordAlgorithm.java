@@ -1,8 +1,6 @@
 package Graphs.LevelTwo;
 import java.util.*;
-
-import LinkedList.removedupll;
-public class BellManFordAlgorithm 
+public class BellManFordAlgorithm   //bellman ford works on the negative edges where the djisktra donnot give the shortest path for negative edges and also bellman the Bellman-Ford algorithm can handle directed and undirected graphs with non-negative weights. However, it can only handle directed graphs with negative weights, as long as we don't have negative cycles.
 {
     public static void calculateShortestDistanceFromSourceToEveryNode(int arr[][],int V) //v is total vertices
     {
@@ -11,7 +9,7 @@ public class BellManFordAlgorithm
         {
             path[i] = Integer.MAX_VALUE;
         }
-        for(int i = 0;i<V - 1;i++) //outer loop or the ith iteration runs for every vertice and try to find the shortest distance for example for i = 0 j will traverse on whole array but the node which is closest to the src or 0th node its distance can be calculated for i = 0th iteration but it will try to find the shortest path for every element in every iteration 
+        for(int i = 1;i<=V - 1;i++) //outer loop starts from i = 1 as for i = 0 or 0th node distance is zero from itself the ith iteration runs for every vertice and try to find the shortest distance for example for i = 1 j will traverse on whole array but the node which is closest to the src or 0th node its distance can be calculated for i = 1th iteration but it will try to find the shortest path for every element in every iteration 
         {
             for(int j = 0;j<path.length;j++) //inner loop runs on the path array it checks if the path[src] + distance between src and neighbour < path[nbr] if path of source plus the distance between src and neighbour is less than the previously initialised path of the neighbour then update the distance of neighbour 
             {
@@ -19,11 +17,11 @@ public class BellManFordAlgorithm
                 int nbr = arr[j][1];
                 int wt = arr[j][2];
 
-                if(path[src] == Integer.MAX_VALUE) //if the distance of source is infinity and we add further more distance of nbr from src in infinity then it will remain infinity and we will be checking if infinity < infinity so continue in that case 
+                if(path[src] == Integer.MAX_VALUE) //if we add some value in Integer.MAX_VALUE Then its value change and become grater than the other node having Integer.MAX_VALUE so in that case there is no need to check if our src have max value then we cannot find the shortest path for the neighbour as adding weight in source further makes it greater rather than smaller than the previous distance of neighbour so continue
                 {
                     continue; 
                 }
-                if(path[src] + wt < path[nbr])
+                if(path[src] + wt < path[nbr]) 
                 {
                     path[nbr] = path[src] + wt;
                 }
@@ -46,12 +44,11 @@ public class BellManFordAlgorithm
                return;
             }
         }
-
         for(int i = 0;i<path.length;i++)
         {
             if(path[i] != Integer.MAX_VALUE) //if graph ss connected then path[i] will always have some shortest path but if graph is not a connected graph then it will have max value and if it have max value print 1 billion
             {
-                System.out.println(path[i] + ""); 
+                System.out.print(path[i] + " "); 
             }
             else 
             {
@@ -63,6 +60,8 @@ public class BellManFordAlgorithm
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("enter number of vertices");
+        int vertices = sc.nextInt();
+        System.out.println("enter the number of edges between vertices");
         int edges = sc.nextInt();
         int arr[][] = new int[edges][3]; //we need 3 columns for storing source , neighbour , edge
         for(int i = 0;i<arr.length;i++)
@@ -77,5 +76,6 @@ public class BellManFordAlgorithm
             arr[i][1] = nbr;
             arr[i][2] = wt;
         }
+        calculateShortestDistanceFromSourceToEveryNode(arr, vertices);
     }
 }
