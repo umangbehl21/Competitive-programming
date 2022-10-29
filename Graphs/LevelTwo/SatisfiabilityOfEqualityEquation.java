@@ -35,7 +35,7 @@ public class SatisfiabilityOfEqualityEquation
     {
         parent = new int[26];
         rank = new int[26];
-        for(int i = 0;i<26;i++)
+        for(int i = 0;i<parent.length;i++)
         {
             parent[i] = i;
             rank[i] = 1;
